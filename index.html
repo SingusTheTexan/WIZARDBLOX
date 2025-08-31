@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WizardBlox - Login</title>
+  <style>
+    body { font-family: Arial; background-color: #e0e0ff; text-align: center; }
+    .box { margin: 100px auto; padding: 20px; background: white; width: 300px; border-radius: 10px; }
+    input { margin: 5px; padding: 8px; width: 80%; }
+    button { padding: 8px 16px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>WizardBlox</h1>
+    <input id="username" placeholder="Username"><br>
+    <input id="password" type="password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+    <button onclick="register()">Register</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    async function login() {
+      let res = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value
+        })
+      });
+      let data = await res.json();
+      document.getElementById("message").innerText = data.message;
+    }
+
+    async function register() {
+      let res = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value
+        })
+      });
+      let data = await res.json();
+      document.getElementById("message").innerText = data.message;
+    }
+  </script>
+</body>
+</html>
